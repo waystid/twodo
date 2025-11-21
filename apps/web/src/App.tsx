@@ -1,21 +1,53 @@
+import { useEffect, useState } from 'react';
+import { useAuth } from './hooks/useAuth';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { HomePage } from './pages/HomePage';
+import { LoginPage } from './pages/LoginPage';
+import { SignupPage } from './pages/SignupPage';
+import { VerifyEmailPage } from './pages/VerifyEmailPage';
+import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
+import { ResetPasswordPage } from './pages/ResetPasswordPage';
+
+function Router() {
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    const onLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', onLocationChange);
+    return () => window.removeEventListener('popstate', onLocationChange);
+  }, []);
+
+  // Redirect authenticated users away from auth pages
+  useEffect(() => {
+    const authPages = ['/login', '/signup', '/forgot-password', '/reset-password'];
+    if (isAuthenticated && authPages.includes(currentPath)) {
+      window.location.href = '/';
+    }
+  }, [isAuthenticated, currentPath]);
+
+  // Route mapping
+  const routes: Record<string, JSX.Element> = {
+    '/': (
+      <ProtectedRoute>
+        <HomePage />
+      </ProtectedRoute>
+    ),
+    '/login': <LoginPage />,
+    '/signup': <SignupPage />,
+    '/verify-email': <VerifyEmailPage />,
+    '/forgot-password': <ForgotPasswordPage />,
+    '/reset-password': <ResetPasswordPage />,
+  };
+
+  return routes[currentPath] || routes['/'];
+}
+
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-16">
-        <div className="text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
-            Welcome to TwoDo
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Life management for couples - Coming soon
-          </p>
-          <div className="inline-block px-8 py-4 bg-primary-500 text-white rounded-lg shadow-lg">
-            Development in progress
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  return <Router />;
 }
 
 export default App;

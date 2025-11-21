@@ -7,6 +7,7 @@ import cookie from '@fastify/cookie';
 import { config } from './config';
 import { logger } from './logger';
 import errorHandler from './plugins/error-handler';
+import { authRoutes } from './routes/auth';
 
 export async function buildApp() {
   const app = Fastify({
@@ -50,8 +51,8 @@ export async function buildApp() {
     return { status: 'ok', timestamp: new Date().toISOString() };
   });
 
-  // API routes will be registered here
-  // await app.register(authRoutes, { prefix: '/api/auth' });
+  // API routes
+  await app.register(authRoutes, { prefix: '/api/auth' });
   // await app.register(coupleRoutes, { prefix: '/api/couples' });
   // etc.
 
