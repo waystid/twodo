@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { coupleApi } from '../lib/couple-api';
 import { taskApi } from '../lib/task-api';
 import { NotificationDropdown } from '../components/NotificationDropdown';
+import { Notes } from '../components/Notes';
 import type { TaskList, Task } from '@twodo/shared';
 
 export function DashboardPage() {
@@ -16,6 +17,7 @@ export function DashboardPage() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteCode, setInviteCode] = useState('');
+  const [expandedTaskId, setExpandedTaskId] = useState<string | null>(null);
 
   // Fetch couple
   const { data: coupleData } = useQuery({
@@ -309,20 +311,37 @@ export function DashboardPage() {
                     className="mt-1 h-5 w-5 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                   />
                   <div className="flex-1">
-                    <h3
-                      className={`font-medium ${
-                        task.status === 'completed' ? 'line-through text-gray-500' : 'text-gray-900'
-                      }`}
-                    >
-                      {task.title}
-                    </h3>
-                    {task.description && (
-                      <p className="text-sm text-gray-600 mt-1">{task.description}</p>
-                    )}
-                    {task.dueDate && (
-                      <p className="text-xs text-gray-500 mt-1">
-                        Due: {new Date(task.dueDate).toLocaleDateString()}
-                      </p>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3
+                          className={`font-medium ${
+                            task.status === 'completed' ? 'line-through text-gray-500' : 'text-gray-900'
+                          }`}
+                        >
+                          {task.title}
+                        </h3>
+                        {task.description && (
+                          <p className="text-sm text-gray-600 mt-1">{task.description}</p>
+                        )}
+                        {task.dueDate && (
+                          <p className="text-xs text-gray-500 mt-1">
+                            Due: {new Date(task.dueDate).toLocaleDateString()}
+                          </p>
+                        )}
+                      </div>
+                      <button
+                        onClick={() => setExpandedTaskId(expandedTaskId === task.id ? null : task.id)}
+                        className="text-sm text-primary-600 hover:text-primary-700 ml-2"
+                      >
+                        {expandedTaskId === task.id ? '△ Hide' : '▽ Details'}
+                      </button>
+                    </div>
+
+                    {/* Expanded section with notes */}
+                    {expandedTaskId === task.id && (
+                      <div className="mt-4 pt-4 border-t">
+                        <Notes attachedToType="task" attachedToId={task.id} />
+                      </div>
                     )}
                   </div>
                 </div>
