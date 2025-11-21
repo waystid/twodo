@@ -10,6 +10,7 @@ import errorHandler from './plugins/error-handler';
 import { authRoutes } from './routes/auth';
 import { coupleRoutes } from './routes/couples';
 import { taskRoutes } from './routes/tasks';
+import { routineRoutes } from './routes/routines';
 
 export async function buildApp() {
   const app = Fastify({
@@ -57,6 +58,7 @@ export async function buildApp() {
   await app.register(authRoutes, { prefix: '/api/auth' });
   await app.register(coupleRoutes, { prefix: '/api/couples' });
   await app.register(taskRoutes, { prefix: '/api' });
+  await app.register(routineRoutes, { prefix: '/api/routines' });
 
   return app;
 }

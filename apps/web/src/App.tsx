@@ -10,6 +10,7 @@ import { ResetPasswordPage } from './pages/ResetPasswordPage';
 import { CreateCouplePage } from './pages/CreateCouplePage';
 import { JoinCouplePage } from './pages/JoinCouplePage';
 import { DashboardPage } from './pages/DashboardPage';
+import { RoutinesPage } from './pages/RoutinesPage';
 
 function Router() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -42,6 +43,11 @@ function Router() {
     '/dashboard': (
       <ProtectedRoute>
         <DashboardPage />
+      </ProtectedRoute>
+    ),
+    '/routines': (
+      <ProtectedRoute>
+        <RoutinesPage />
       </ProtectedRoute>
     ),
     '/create-couple': (
