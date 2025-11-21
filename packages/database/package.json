@@ -1,0 +1,28 @@
+{
+  "name": "@twodo/database",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "migrate": "drizzle-kit generate:pg && drizzle-kit push:pg",
+    "migrate:generate": "drizzle-kit generate:pg",
+    "migrate:push": "drizzle-kit push:pg",
+    "studio": "drizzle-kit studio",
+    "seed": "tsx src/seed.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.29.1",
+    "postgres": "^3.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "drizzle-kit": "^0.20.6",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

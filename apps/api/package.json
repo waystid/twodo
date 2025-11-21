@@ -1,0 +1,39 @@
+{
+  "name": "@twodo/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^9.2.0",
+    "@fastify/cors": "^8.4.2",
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/jwt": "^7.2.3",
+    "@fastify/rate-limit": "^9.1.0",
+    "@twodo/database": "workspace:*",
+    "@twodo/shared": "workspace:*",
+    "bcrypt": "^5.1.1",
+    "bullmq": "^5.1.0",
+    "fastify": "^4.25.1",
+    "fastify-plugin": "^4.5.1",
+    "ioredis": "^5.3.2",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.0.4"
+  }
+}
