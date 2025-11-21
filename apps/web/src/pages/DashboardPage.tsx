@@ -172,7 +172,7 @@ export function DashboardPage() {
             ))}
           </div>
 
-          {/* Routines and Calendar links */}
+          {/* Routines, Calendar, and Settings links */}
           <div className="mt-4 pt-4 border-t">
             <button
               onClick={() => (window.location.href = '/routines')}
@@ -187,6 +187,13 @@ export function DashboardPage() {
             >
               <span>📅</span>
               <span>Calendar</span>
+            </button>
+            <button
+              onClick={() => (window.location.href = '/settings')}
+              className="w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-100 flex items-center gap-2"
+            >
+              <span>⚙️</span>
+              <span>Settings</span>
             </button>
           </div>
         </div>

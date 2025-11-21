@@ -12,6 +12,7 @@ import { JoinCouplePage } from './pages/JoinCouplePage';
 import { DashboardPage } from './pages/DashboardPage';
 import { RoutinesPage } from './pages/RoutinesPage';
 import { CalendarPage } from './pages/CalendarPage';
+import { SettingsPage } from './pages/SettingsPage';
 
 function Router() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -54,6 +55,11 @@ function Router() {
     '/calendar': (
       <ProtectedRoute>
         <CalendarPage />
+      </ProtectedRoute>
+    ),
+    '/settings': (
+      <ProtectedRoute>
+        <SettingsPage />
       </ProtectedRoute>
     ),
     '/create-couple': (

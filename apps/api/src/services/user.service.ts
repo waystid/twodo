@@ -213,4 +213,54 @@ export class UserService {
       user,
     };
   }
+
+  static async updateProfile(userId: string, data: { displayName?: string; timezone?: string; avatarUrl?: string }) {
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, userId),
+    });
+
+    if (!user) {
+      throw new NotFoundError('User not found');
+    }
+
+    const [updatedUser] = await db
+      .update(users)
+      .set({
+        ...data,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, userId))
+      .returning();
+
+    return updatedUser;
+  }
+
+  static async updatePassword(userId: string, currentPassword: string, newPassword: string) {
+    const user = await db.query.users.findFirst({
+      where: eq(users.id, userId),
+    });
+
+    if (!user) {
+      throw new NotFoundError('User not found');
+    }
+
+    const isPasswordValid = await PasswordService.compare(currentPassword, user.passwordHash);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedError('Current password is incorrect');
+    }
+
+    const passwordHash = await PasswordService.hash(newPassword);
+
+    const [updatedUser] = await db
+      .update(users)
+      .set({
+        passwordHash,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, userId))
+      .returning();
+
+    return updatedUser;
+  }
 }

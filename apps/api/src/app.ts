@@ -14,6 +14,7 @@ import { routineRoutes } from './routes/routines';
 import { notificationRoutes } from './routes/notifications';
 import { eventRoutes } from './routes/events';
 import { noteRoutes } from './routes/notes';
+import { settingsRoutes } from './routes/settings';
 
 export async function buildApp() {
   const app = Fastify({
@@ -65,6 +66,7 @@ export async function buildApp() {
   await app.register(notificationRoutes, { prefix: '/api/notifications' });
   await app.register(eventRoutes, { prefix: '/api/events' });
   await app.register(noteRoutes, { prefix: '/api/notes' });
+  await app.register(settingsRoutes, { prefix: '/api/settings' });
 
   return app;
 }
