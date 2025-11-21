@@ -85,12 +85,10 @@ struct CoupleSetupView: View {
                 .padding(.bottom, 40)
             }
             .sheet(isPresented: $showCreateCouple) {
-                Text("Create Couple - Coming Soon")
-                    .padding()
+                CreateCoupleView()
             }
             .sheet(isPresented: $showJoinCouple) {
-                Text("Join Couple - Coming Soon")
-                    .padding()
+                JoinCoupleView()
             }
         }
     }
