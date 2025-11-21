@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../hooks/useAuth';
 import { coupleApi } from '../lib/couple-api';
 import { taskApi } from '../lib/task-api';
+import { NotificationDropdown } from '../components/NotificationDropdown';
 import type { TaskList, Task } from '@twodo/shared';
 
 export function DashboardPage() {
@@ -169,7 +170,7 @@ export function DashboardPage() {
             ))}
           </div>
 
-          {/* Routines link */}
+          {/* Routines and Calendar links */}
           <div className="mt-4 pt-4 border-t">
             <button
               onClick={() => (window.location.href = '/routines')}
@@ -177,6 +178,13 @@ export function DashboardPage() {
             >
               <span>🔄</span>
               <span>Routines</span>
+            </button>
+            <button
+              onClick={() => (window.location.href = '/calendar')}
+              className="w-full text-left px-3 py-2 rounded text-sm hover:bg-gray-100 flex items-center gap-2"
+            >
+              <span>📅</span>
+              <span>Calendar</span>
             </button>
           </div>
         </div>
@@ -209,13 +217,16 @@ export function DashboardPage() {
       {/* Main content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <div className="bg-white shadow-sm p-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-900">
-            {selectedList ? selectedList.name : 'All Tasks'}
-          </h2>
-          <p className="text-sm text-gray-600 mt-1">
-            {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
-          </p>
+        <div className="bg-white shadow-sm p-6 border-b flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {selectedList ? selectedList.name : 'All Tasks'}
+            </h2>
+            <p className="text-sm text-gray-600 mt-1">
+              {tasks.length} {tasks.length === 1 ? 'task' : 'tasks'}
+            </p>
+          </div>
+          <NotificationDropdown />
         </div>
 
         {/* Tasks */}

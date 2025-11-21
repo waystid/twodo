@@ -11,6 +11,8 @@ import { authRoutes } from './routes/auth';
 import { coupleRoutes } from './routes/couples';
 import { taskRoutes } from './routes/tasks';
 import { routineRoutes } from './routes/routines';
+import { notificationRoutes } from './routes/notifications';
+import { eventRoutes } from './routes/events';
 
 export async function buildApp() {
   const app = Fastify({
@@ -59,6 +61,8 @@ export async function buildApp() {
   await app.register(coupleRoutes, { prefix: '/api/couples' });
   await app.register(taskRoutes, { prefix: '/api' });
   await app.register(routineRoutes, { prefix: '/api/routines' });
+  await app.register(notificationRoutes, { prefix: '/api/notifications' });
+  await app.register(eventRoutes, { prefix: '/api/events' });
 
   return app;
 }

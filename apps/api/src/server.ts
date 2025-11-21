@@ -2,6 +2,7 @@ import { buildApp } from './app';
 import { config } from './config';
 import { logger } from './logger';
 import { routineGeneratorJob } from './jobs/routine-generator';
+import { notificationGeneratorJob } from './jobs/notification-generator';
 
 async function start() {
   try {
@@ -16,6 +17,7 @@ async function start() {
 
     // Start background jobs
     routineGeneratorJob.start();
+    notificationGeneratorJob.start();
   } catch (error) {
     logger.error(error);
     process.exit(1);
@@ -26,6 +28,7 @@ async function start() {
 process.on('SIGTERM', () => {
   logger.info('SIGTERM received, shutting down gracefully');
   routineGeneratorJob.stop();
+  notificationGeneratorJob.stop();
   process.exit(0);
 });
 
