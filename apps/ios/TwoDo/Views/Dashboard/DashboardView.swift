@@ -30,6 +30,18 @@ struct DashboardView: View {
                 }
                 .badge(notificationViewModel.unreadCount)
                 .tag(3)
+
+            NotesJournalTabView()
+                .tabItem {
+                    Label("Notes", systemImage: "note.text")
+                }
+                .tag(4)
+
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gear")
+                }
+                .tag(5)
         }
         .task {
             // Fetch notification count on app launch

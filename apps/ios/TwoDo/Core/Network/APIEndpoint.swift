@@ -66,10 +66,14 @@ enum APIEndpoint {
     case registerPushToken
 
     // MARK: - Notes
-    case getNotes(String, String) // type, entityId
+    case getNotes
     case createNote
     case updateNote(String)
     case deleteNote(String)
+    case getJournalEntries
+    case createJournalEntry
+    case updateJournalEntry(String)
+    case deleteJournalEntry(String)
 
     // MARK: - Settings
     case getSettings
@@ -139,10 +143,14 @@ enum APIEndpoint {
         case .registerPushToken: return "/notifications/push-token"
 
         // Notes
-        case .getNotes(let type, let entityId): return "/notes/\(type)/\(entityId)"
+        case .getNotes: return "/notes"
         case .createNote: return "/notes"
         case .updateNote(let id): return "/notes/\(id)"
         case .deleteNote(let id): return "/notes/\(id)"
+        case .getJournalEntries: return "/journal"
+        case .createJournalEntry: return "/journal"
+        case .updateJournalEntry(let id): return "/journal/\(id)"
+        case .deleteJournalEntry(let id): return "/journal/\(id)"
 
         // Settings
         case .getSettings: return "/settings"
@@ -158,18 +166,18 @@ enum APIEndpoint {
              .createCouple, .generateInvite, .joinCouple,
              .createTaskList, .createTask, .completeTask, .assignTask,
              .createRoutine, .completeOccurrence, .skipOccurrence,
-             .createEvent, .createNote,
+             .createEvent, .createNote, .createJournalEntry,
              .markNotificationsRead, .registerPushToken:
             return .post
 
         case .updateCouple, .updateTask, .updateRoutine, .updateEvent,
-             .markAsRead, .markAllAsRead, .updateNote,
+             .markAsRead, .markAllAsRead, .updateNote, .updateJournalEntry,
              .updateProfile, .updatePassword, .updateCoupleSettings,
              .updateNotificationPreferences:
             return .put
 
         case .deleteTask, .deleteRoutine, .deleteEvent, .deleteNotification,
-             .deleteNote, .leaveCouple, .logout:
+             .deleteNote, .deleteJournalEntry, .leaveCouple, .logout:
             return .delete
 
         default:
