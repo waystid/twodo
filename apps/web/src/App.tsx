@@ -7,6 +7,9 @@ import { SignupPage } from './pages/SignupPage';
 import { VerifyEmailPage } from './pages/VerifyEmailPage';
 import { ForgotPasswordPage } from './pages/ForgotPasswordPage';
 import { ResetPasswordPage } from './pages/ResetPasswordPage';
+import { CreateCouplePage } from './pages/CreateCouplePage';
+import { JoinCouplePage } from './pages/JoinCouplePage';
+import { DashboardPage } from './pages/DashboardPage';
 
 function Router() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -34,6 +37,21 @@ function Router() {
     '/': (
       <ProtectedRoute>
         <HomePage />
+      </ProtectedRoute>
+    ),
+    '/dashboard': (
+      <ProtectedRoute>
+        <DashboardPage />
+      </ProtectedRoute>
+    ),
+    '/create-couple': (
+      <ProtectedRoute>
+        <CreateCouplePage />
+      </ProtectedRoute>
+    ),
+    '/join-couple': (
+      <ProtectedRoute>
+        <JoinCouplePage />
       </ProtectedRoute>
     ),
     '/login': <LoginPage />,
