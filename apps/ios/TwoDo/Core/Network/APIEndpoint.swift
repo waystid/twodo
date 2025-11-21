@@ -58,8 +58,12 @@ enum APIEndpoint {
     case getNotifications
     case getUnreadCount
     case markAsRead(String)
+    case markNotificationsRead
     case markAllAsRead
     case deleteNotification(String)
+    case getNotificationPreferences
+    case updateNotificationPreferences
+    case registerPushToken
 
     // MARK: - Notes
     case getNotes(String, String) // type, entityId
@@ -127,8 +131,12 @@ enum APIEndpoint {
         case .getNotifications: return "/notifications"
         case .getUnreadCount: return "/notifications/unread-count"
         case .markAsRead(let id): return "/notifications/\(id)/read"
+        case .markNotificationsRead: return "/notifications/read"
         case .markAllAsRead: return "/notifications/read-all"
         case .deleteNotification(let id): return "/notifications/\(id)"
+        case .getNotificationPreferences: return "/notifications/preferences"
+        case .updateNotificationPreferences: return "/notifications/preferences"
+        case .registerPushToken: return "/notifications/push-token"
 
         // Notes
         case .getNotes(let type, let entityId): return "/notes/\(type)/\(entityId)"
@@ -150,12 +158,14 @@ enum APIEndpoint {
              .createCouple, .generateInvite, .joinCouple,
              .createTaskList, .createTask, .completeTask, .assignTask,
              .createRoutine, .completeOccurrence, .skipOccurrence,
-             .createEvent, .createNote:
+             .createEvent, .createNote,
+             .markNotificationsRead, .registerPushToken:
             return .post
 
         case .updateCouple, .updateTask, .updateRoutine, .updateEvent,
              .markAsRead, .markAllAsRead, .updateNote,
-             .updateProfile, .updatePassword, .updateCoupleSettings:
+             .updateProfile, .updatePassword, .updateCoupleSettings,
+             .updateNotificationPreferences:
             return .put
 
         case .deleteTask, .deleteRoutine, .deleteEvent, .deleteNotification,

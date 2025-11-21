@@ -2,6 +2,7 @@ import SwiftUI
 
 struct DashboardView: View {
     @State private var selectedTab = 0
+    @StateObject private var notificationViewModel = NotificationViewModel()
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -22,6 +23,17 @@ struct DashboardView: View {
                     Label("Calendar", systemImage: "calendar")
                 }
                 .tag(2)
+
+            NotificationsView()
+                .tabItem {
+                    Label("Notifications", systemImage: "bell")
+                }
+                .badge(notificationViewModel.unreadCount)
+                .tag(3)
+        }
+        .task {
+            // Fetch notification count on app launch
+            await notificationViewModel.fetchNotifications()
         }
     }
 }
