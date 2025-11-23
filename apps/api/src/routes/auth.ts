@@ -9,8 +9,8 @@ import {
 import { UserService } from '../services/user.service';
 import { EmailService } from '../services/email.service';
 import { TokenService, type JWTPayload } from '../services/auth.service';
-import { validateBody } from '../middleware/validate';
-import { authenticate } from '../middleware/auth';
+import { validateBody } from '../middleware/validate.js';
+import { authenticate } from '../middleware/auth.js';
 import { BadRequestError } from '../utils/errors';
 
 export async function authRoutes(fastify: FastifyInstance) {

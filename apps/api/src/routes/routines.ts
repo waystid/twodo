@@ -1,12 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { createRoutineSchema, updateRoutineSchema } from '@twodo/shared';
 import { RoutineService } from '../services/routine.service';
-import { authenticate, requireCouple } from '../middleware/auth';
-import { validateBody } from '../middleware/validate';
+import { authenticate, requireCouple } from '../middleware/auth.js';
+import { validateBody } from '../middleware/validate.js';
 
 export async function routineRoutes(fastify: FastifyInstance) {
   // All routes require authentication and couple membership
-  fastify.addHook('preHandler', [authenticate, requireCouple]);
+  fastify.addHook('preHandler', authenticate);
+  fastify.addHook('preHandler', requireCouple);
 
   // Get all routines for couple
   fastify.get('/', async (request, reply) => {

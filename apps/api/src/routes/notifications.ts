@@ -1,7 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { NotificationService } from '../services/notification.service';
-import { requireAuth } from '../middlewares/auth';
-import { requireCouple } from '../middlewares/couple';
+import { authenticate, requireCouple } from '../middleware/auth.js';
 import { NotFoundError } from '../utils/errors';
 
 export async function notificationRoutes(app: FastifyInstance) {
@@ -9,7 +8,7 @@ export async function notificationRoutes(app: FastifyInstance) {
   app.get(
     '/',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const userId = request.user!.id;
@@ -25,7 +24,7 @@ export async function notificationRoutes(app: FastifyInstance) {
   app.get(
     '/unread-count',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const userId = request.user!.id;
@@ -39,7 +38,7 @@ export async function notificationRoutes(app: FastifyInstance) {
   app.put(
     '/:id/read',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const userId = request.user!.id;
@@ -61,7 +60,7 @@ export async function notificationRoutes(app: FastifyInstance) {
   app.put(
     '/read-all',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const userId = request.user!.id;
@@ -75,7 +74,7 @@ export async function notificationRoutes(app: FastifyInstance) {
   app.delete(
     '/:id',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const userId = request.user!.id;

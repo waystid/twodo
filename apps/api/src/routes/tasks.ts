@@ -8,12 +8,13 @@ import {
   completeTaskSchema,
 } from '@twodo/shared';
 import { TaskService } from '../services/task.service';
-import { authenticate, requireCouple } from '../middleware/auth';
-import { validateBody } from '../middleware/validate';
+import { authenticate, requireCouple } from '../middleware/auth.js';
+import { validateBody } from '../middleware/validate.js';
 
 export async function taskRoutes(fastify: FastifyInstance) {
   // All routes require authentication and couple membership
-  fastify.addHook('preHandler', [authenticate, requireCouple]);
+  fastify.addHook('preHandler', authenticate);
+  fastify.addHook('preHandler', requireCouple);
 
   // ===== Task Lists =====
 

@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { createCoupleSchema, joinCoupleSchema, updateCoupleSchema } from '@twodo/shared';
 import { CoupleService } from '../services/couple.service';
-import { authenticate, requireCouple } from '../middleware/auth';
-import { validateBody } from '../middleware/validate';
+import { authenticate, requireCouple } from '../middleware/auth.js';
+import { validateBody } from '../middleware/validate.js';
 
 export async function coupleRoutes(fastify: FastifyInstance) {
   // Create Couple

@@ -3,6 +3,7 @@ import { eq, and } from 'drizzle-orm';
 import type { RegisterInput, LoginInput } from '@twodo/shared';
 import { PasswordService } from './auth.service';
 import { UnauthorizedError, ConflictError, BadRequestError, NotFoundError } from '../utils/errors';
+import { config } from '../config';
 
 export class UserService {
   static async createUser(input: RegisterInput) {
@@ -87,7 +88,8 @@ export class UserService {
       throw new UnauthorizedError('Invalid email or password');
     }
 
-    if (!user.emailVerified) {
+    // Skip email verification in development mode
+    if (!user.emailVerified && config.env !== 'development') {
       throw new UnauthorizedError('Please verify your email before logging in');
     }
 

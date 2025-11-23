@@ -121,5 +121,3 @@ struct RegisterPushTokenRequest: Codable {
     let token: String
     let platform: String // "ios"
 }
-
-struct EmptyResponse: Codable {}

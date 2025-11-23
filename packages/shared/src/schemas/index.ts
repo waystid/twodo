@@ -4,3 +4,4 @@ export * from './task';
 export * from './event';
 export * from './routine';
 export * from './note';
+export * from './settings';

@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { UserService } from '../services/user.service';
 import { CoupleService } from '../services/couple.service';
-import { requireAuth } from '../middlewares/auth';
-import { requireCouple } from '../middlewares/couple';
+import { authenticate } from '../middleware/auth.js';
+import { requireCouple } from '../middleware/auth.js';
 import { updateProfileSchema, updatePasswordSchema } from '@twodo/shared';
 import { updateCoupleSchema } from '@twodo/shared';
 import { NotFoundError, UnauthorizedError } from '../utils/errors';
@@ -12,7 +12,7 @@ export async function settingsRoutes(app: FastifyInstance) {
   app.put(
     '/profile',
     {
-      preHandler: [requireAuth],
+      preHandler: [authenticate],
     },
     async (request, reply) => {
       const userId = request.user!.id;
@@ -42,7 +42,7 @@ export async function settingsRoutes(app: FastifyInstance) {
   app.put(
     '/password',
     {
-      preHandler: [requireAuth],
+      preHandler: [authenticate],
     },
     async (request, reply) => {
       const userId = request.user!.id;
@@ -73,7 +73,7 @@ export async function settingsRoutes(app: FastifyInstance) {
   app.put(
     '/couple',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const coupleId = request.user!.coupleId!;
@@ -100,7 +100,7 @@ export async function settingsRoutes(app: FastifyInstance) {
   app.get(
     '/',
     {
-      preHandler: [requireAuth],
+      preHandler: [authenticate],
     },
     async (request, reply) => {
       const userId = request.user!.id;

@@ -1,6 +1,7 @@
 import Foundation
 
-actor APIClient {
+@MainActor
+class APIClient: @unchecked Sendable {
     static let shared = APIClient()
 
     private let session: URLSession

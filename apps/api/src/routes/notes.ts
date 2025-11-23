@@ -1,7 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { NoteService } from '../services/note.service';
-import { requireAuth } from '../middlewares/auth';
-import { requireCouple } from '../middlewares/couple';
+import { authenticate, requireCouple } from '../middleware/auth.js';
 import { createNoteSchema, updateNoteSchema } from '@twodo/shared';
 import { NotFoundError } from '../utils/errors';
 
@@ -10,7 +9,7 @@ export async function noteRoutes(app: FastifyInstance) {
   app.post(
     '/',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const coupleId = request.user!.coupleId!;
@@ -31,7 +30,7 @@ export async function noteRoutes(app: FastifyInstance) {
   app.get(
     '/:type/:id',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const coupleId = request.user!.coupleId!;
@@ -51,7 +50,7 @@ export async function noteRoutes(app: FastifyInstance) {
   app.get(
     '/:id',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const coupleId = request.user!.coupleId!;
@@ -73,7 +72,7 @@ export async function noteRoutes(app: FastifyInstance) {
   app.put(
     '/:id',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const coupleId = request.user!.coupleId!;
@@ -101,7 +100,7 @@ export async function noteRoutes(app: FastifyInstance) {
   app.delete(
     '/:id',
     {
-      preHandler: [requireAuth, requireCouple],
+      preHandler: [authenticate, requireCouple],
     },
     async (request, reply) => {
       const coupleId = request.user!.coupleId!;

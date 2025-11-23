@@ -527,13 +527,7 @@ extension Array {
                 daysOfWeek: nil,
                 dayOfMonth: nil
             ),
-            isActive: true,
-            stats: RoutineStats(
-                currentStreak: 5,
-                longestStreak: 10,
-                totalCompleted: 45,
-                completionRate: 0.85
-            ),
+            assignedToUserId: nil,
             createdById: "1",
             createdAt: Date(),
             updatedAt: Date()
